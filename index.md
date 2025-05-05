@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Boardgame Protocol
+nav_order: 1
 ---
 
 # Boardgame Protocol
