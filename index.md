@@ -48,6 +48,7 @@ The protocol is built with a **two-layer structure**:
 - A **game-specific extension** that allows the game to define its unique state and actions, while still adhering to the core protocol.
 
 Both layers have versioning to ensure backward compatibility and smooth upgrades across different versions of the protocol and games.
+
 ---
 
 ## 🚦 Match Status
