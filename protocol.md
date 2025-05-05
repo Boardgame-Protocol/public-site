@@ -33,7 +33,10 @@ To get the current match state, an agent sends a request message:
   "type": "get_state",
   "game": "game_code",
   "match_id": "abc123",
-  "agent_id": "agent_2"
+  "agent_id": "agent_2",
+  "state": {
+    "version:: "1.0.0"
+  }
 }
 ```
 
@@ -53,8 +56,8 @@ To get the current match state, an agent sends a request message:
   "ended_at": null,
   "active_agent_id": "agent_2",
   "agents": [
-    { "id": "agent_1", "name": "Agent One", type: "human" },
-    { "id": "agent_2", "name": "Agent Two", type: "ai" }
+    { "id": "agent_1", "name": "Agent One", "type": "human" },
+    { "id": "agent_2", "name": "Agent Two", "type": "ai" }
   ],
   "state": {
     "version": "1.0.0",
@@ -79,8 +82,8 @@ Here’s an example of how a client sends an action to the server:
   "match_id": "abc123",
   "agent_id": "agent_2",
   "action": {
-    "type": "some_action",
     "version": "1.0.0",
+    "type": "some_action",
     "data": {
       "example_property": "example_value"
     }
@@ -98,8 +101,8 @@ Here’s an example of how a client sends an action to the server:
   "match_id": "abc123",
   "agent_id": "agent_2",
   "action_response": {
-    "status": "success",
     "version": "1.0.0",
+    "status": "success",
     "message": "Action performed successfully",
     "data": {
       "example_property": "example_value"
@@ -118,11 +121,12 @@ The server would send a response to inform agents of some asyncronous operation 
 {
   "version": "1.0.0",
   "type": "push_message",
+  "game": "game_code",
   "match_id": "abc123",
+  "agent_id": "agent_2",
   "message_response": {
-    "status": "success",
     "version": "1.0.0",
-    "message": "Action performed successfully",
+    "message": "Agent 1 drew a card",
     "data": {
       "example_property": "example_value"
     }
