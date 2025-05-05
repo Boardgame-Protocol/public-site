@@ -9,7 +9,15 @@ The **Boardgame Protocol** is a JSON-based, extensible communication protocol de
 
 ---
 
-## ✨ Goals
+### 🔑 Key Goals:
+- **Interoperability**: Designed to work across any board game by standardizing the way agents interact with the game server.
+- **Extensibility**: Easily customizable to suit the specific needs of different games without modifying the core protocol.
+- **Consistency**: Ensures that all communication between the game server and agents follows a consistent structure.
+
+
+---
+
+## ✨ Specifications
 
 - Allow agents and engines to be developed independently.
 - Support both human and AI players through the same interface.
@@ -32,43 +40,14 @@ It also introduces the concept of **protocol-level versioning**, as well as opti
 
 ---
 
-## 📦 Protocol Message Types
+## 🧬 Double Protocol and Versioning
 
-1. `get_state`: request the current state of the match  
-2. `perform_action`: submit an action from an agent  
-3. `action_response`: acknowledge a valid action  
-4. `push_event`: async updates for non-active agents  
-5. `error`: in case of malformed input or invalid actions  
+The protocol is built with a **two-layer structure**:
 
----
+- A **generic protocol** that defines common message types and data formats.
+- A **game-specific extension** that allows the game to define its unique state and actions, while still adhering to the core protocol.
 
-## 🧱 Match State Structure
-
-A match state includes the following fields:
-
-- `version`: protocol version
-- `game`: identifier of the game type (e.g., "uno", "chess")
-- `match_id`: unique identifier for the match
-- `status`: match status (e.g., `waiting`, `started`, `ended`)
-- `phase`, `turn`, `stage`: progress tracking
-- `started_at`: timestamp when the match started
-- `active_agent_id`: ID of the agent currently taking their turn
-- `agents`: list of participating agents with metadata
-- `state`: contains a `data` object that holds the game-specific state
-
-> 🔹 The `version` field refers to the protocol schema, not the game logic. Game-specific state may carry its own version inside `state.data` if needed.
-
----
-
-## 🧬 Schema Design
-
-Schemas are organized into **two levels**:
-
-1. **Protocol schema**: shared across all games, defines structure of messages and generic match state  
-2. **Game-specific schema**: defines structure of the `state.data` object, actions, and rules  
-
-This allows validation of both the protocol-level structure and the game logic independently.
-
+Both layers have versioning to ensure backward compatibility and smooth upgrades across different versions of the protocol and games.
 ---
 
 ## 🚦 Match Status
@@ -78,6 +57,16 @@ The `status` field allows tracking of the lifecycle of a match:
 - `waiting`: not all agents have joined yet  
 - `started`: gameplay has begun  
 - `ended`: the match is over  
+- `abandoned`: if one or more agents abandoned the match
+
+---
+
+## 🔐 Authentication (Out of Scope)
+
+Authentication and authorization are **not** handled by the protocol itself at this stage.  
+It assumes that agents are already authenticated and authorized by the time they connect to a match.
+
+> 🔸 Match access control, session management, and identity verification are left to the application layer.
 
 ---
 
