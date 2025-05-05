@@ -68,7 +68,7 @@ To get the current match state, an agent sends a request message:
 }
 ```
 
-## Use Case 2: Perform Custom Action
+## Perform Custom Action
 
 Here’s an example of how a client sends an action to the server:
 
@@ -111,7 +111,7 @@ Here’s an example of how a client sends an action to the server:
 }
 ```
 
-## Use Case 4: Async Push Message 
+## Async Push Message 
 
 The server would send a response to inform agents of some asyncronous operation has performed.
 
@@ -127,6 +127,29 @@ The server would send a response to inform agents of some asyncronous operation 
   "message_response": {
     "version": "1.0.0",
     "message": "Agent 1 drew a card",
+    "data": {
+      "example_property": "example_value"
+    }
+  }
+}
+```
+
+## Error Response
+
+The server would send a response to inform agents that some errors occurred.
+
+### Response
+
+```json
+{
+  "version": "1.0.0",
+  "type": "error",
+  "game": "game_code",
+  "match_id": "abc123",
+  "agent_id": "agent_2",
+  "error": {
+    "version": "1.0.0",
+    "message": "Unauthorized action",
     "data": {
       "example_property": "example_value"
     }
