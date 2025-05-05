@@ -35,7 +35,7 @@ To get the current match state, an agent sends a request message:
   "match_id": "abc123",
   "agent_id": "agent_2",
   "state": {
-    "version:: "1.0.0"
+    "version: "1.0.0"
   }
 }
 ```
